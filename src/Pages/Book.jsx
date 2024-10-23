@@ -9,7 +9,7 @@ import { addToCart } from '../Store/cartSlice'
 const Book = () => {
    const { id } = useParams()
    const { data: book, isLoading, isError } = useFetchBookByIdQuery(id)
-   console.log(book)
+   // console.log(book)
    const dispatch = useDispatch()
 
    const handleAddToCart = (product) => {

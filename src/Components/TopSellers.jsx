@@ -42,7 +42,7 @@ const TopSellers = () => {
                      <option key={index} value={category}>{category}</option>
                   ))}
                </Form.Select>
-               {console.log(selectedCategory)}
+               {/* {console.log(selectedCategory)} */}
                <Swiper
                   slidesPerView={1}
                   spaceBetween={30}
