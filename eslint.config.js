@@ -24,6 +24,7 @@ export default [
       'react-refresh': reactRefresh,
     },
     rules: {
+      'prop-type': false,
       ...js.configs.recommended.rules,
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,

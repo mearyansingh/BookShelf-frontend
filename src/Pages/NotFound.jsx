@@ -1,30 +1,25 @@
 import React from 'react'
+import { Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const NotFound = () => {
    return (
-      <div className="error-bg">
-
-
-         <div className="error-container mt-5">
-
-            <div className="container">
-
-               <div className="row justify-content-center">
-                  <div className="col-12">
-                     <h1>404</h1>
-                  </div>
-                  <div className="col-xl-6 col-sm-10">
-                     <h2 className="fw-semibold mb-4">
-                        We're sorry but it looks like the page doesn't exist anymore.
-                     </h2>
-                     <a href="#" className="btn btn-dark rounded-5 px-5 py-3 fs-5">Go to Dashboard</a>
-                  </div>
+      <section className="py-3 py-md-5 d-flex justify-content-center align-items-center">
+         <div className="row">
+            <div className="col-12">
+               <div className="text-center">
+                  <h2 className="d-flex justify-content-center align-items-center gap-2 mb-4">
+                     <span className="display-1 fw-bold">4</span>
+                     <i className="bi bi-exclamation-circle-fill text-danger display-4"></i>
+                     <span className="display-1 fw-bold bsb-flip-h">4</span>
+                  </h2>
+                  <h3 className="h2 mb-2">Oops! You're lost.</h3>
+                  <p className="mb-5">The page you are looking for was not found.</p>
+                  <Button as={Link} variant='dark' className="rounded-pill px-5 fs-6 m-0" to="/" size="lg">Back to Home</Button>
                </div>
-
             </div>
-
          </div>
-      </div>
+      </section>
    )
 }
 

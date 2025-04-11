@@ -1,7 +1,8 @@
+import { Suspense } from "react"
 import { Outlet } from "react-router-dom"
-// import Header from "./Components/Header"
-import Footer from "./Components/Footer"
+import { ToastContainer } from 'react-toastify';
 import Header from "./Components/Header"
+import Footer from "./Components/Footer"
 import { AuthProvider } from "./Context/AuthContext"
 
 function App() {
@@ -9,13 +10,17 @@ function App() {
   return (
     <>
       <AuthProvider>
-        <Header />
-        <main className="min-vh-100" style={{ marginTop: "68px" }}>
-          <Outlet />
-        </main>
-        <Footer />
+        <div className="d-flex flex-column min-vh-100">
+          <Header />
+          <main className="flex-grow-1">
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <Outlet />
+            </Suspense>
+          </main>
+          <Footer />
+          <ToastContainer />
+        </div >
       </AuthProvider>
-
     </>
   )
 }

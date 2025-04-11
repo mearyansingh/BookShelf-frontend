@@ -3,9 +3,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../Context/AuthContext';
+import { toast } from 'react-toastify';
+import { handleFirebaseError } from '../Utils/helper';
 
 const Login = () => {
-   const [message, setMessage] = useState("")
    const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
    const { loginUser, signInWithGoogle } = useAuth()
@@ -14,16 +15,17 @@ const Login = () => {
    const onSubmit = async (data) => {
       try {
          await loginUser(data.email, data.password)
-         alert("Login successful")
+         toast.success("Login successful!")
          navigate("/")
       } catch (error) {
-         setMessage("Please provide a valid email and password!")
-         console.log(error)
+         const errorMessage = handleFirebaseError(error);
+         toast.error(errorMessage)
+         console.log('Login failed:', error)
       }
    };
 
+   // Implement Google Sign-In
    const handleGoogleSignIn = async () => {
-      // Implement Google Sign-In logic here
       try {
          await signInWithGoogle()
          alert("Google Sign-In successful")
