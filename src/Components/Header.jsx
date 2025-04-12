@@ -64,6 +64,7 @@ const Header = () => {
                     <Dropdown.Item as={Link} key={menu?.url} to={menu?.url} >{menu?.name}</Dropdown.Item>
                   ))}
                   <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="test">Test</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             ) : (
@@ -72,7 +73,7 @@ const Header = () => {
               </Link>
             )}
             <Button variant="outline-dark fw-semibold" onClick={handleShow}>
-              <i className='bi bi-cart pe-1' /><span className='d-none d-sm-inline-block'>Cart</span>{cartItems?.length > 0 && <span className='ps-1'>{`${cartItems?.length > 0 ? cartItems?.length : '0'}`}</span>}
+              <i className='bi bi-cart' /><span className='ps-1 d-none d-sm-inline-block'>Cart</span>{cartItems?.length > 0 && <span className='ps-1'>{`${cartItems?.length > 0 ? cartItems?.length : '0'}`}</span>}
             </Button>
             <Offcanvas show={show} onHide={handleClose} placement='end'>
               <Offcanvas.Header closeButton>
@@ -81,6 +82,7 @@ const Header = () => {
               <Offcanvas.Body>
                 {cartItems?.length > 0 ?
                   <ListGroup variant="flush">
+                    {console.log(cartItems, "ggg")}
                     {cartItems.map((product) => (
                       <ListGroup.Item key={product._id} className='px-0'>
                         <Figure className='mb-0 d-flex gap-2'>

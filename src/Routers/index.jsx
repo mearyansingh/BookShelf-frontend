@@ -29,7 +29,7 @@ const ManageBooks = lazy(() => import("../Pages/ManageBooks"));
 const Orders = lazy(() => import("../Pages/Orders"));
 const AddBook = lazy(() => import("../Pages/AddBook"));
 const UpdateBook = lazy(() => import("../Pages/UpdateBook"));
-
+const Test = lazy(() => import("../Pages/Test"));
 
 const Routers = createBrowserRouter([
   {
@@ -45,6 +45,7 @@ const Routers = createBrowserRouter([
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/checkout", element: <ProtectedRoute><CheckoutPage /></ProtectedRoute> },
+      { path: "/test", element: <Test /> },
     ],
   },
   {
@@ -56,7 +57,7 @@ const Routers = createBrowserRouter([
     element: <AdminRoute><DashboardLayout /></AdminRoute>,
     children: [
       {
-        path: "",
+        index: true,
         element: <AdminRoute><Dashboard /></AdminRoute>
       },
       {

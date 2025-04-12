@@ -178,33 +178,33 @@ const Book = () => {
                 <Card className="tab-content-card border-light-subtle">
                   <Card.Body className=''>
                     <ListGroup variant="flush" className="book-details-list">
-                      <ListGroup.Item className='border-light-subtle'>
-                        <span className="detail-label">Title:</span>
-                        <span className="detail-value">{book?.title}</span>
+                      <ListGroup.Item className='border-light-subtle py-3 d-flex align-items-center justify-content-between'>
+                        <span className="detail-label fw-semibold">Title:</span>
+                        <span className="detail-value text-secondary">{book?.title}</span>
                       </ListGroup.Item>
-                      <ListGroup.Item>
-                        <span className="detail-label">Author:</span>
-                        <span className="detail-value">N/A</span>
+                      <ListGroup.Item className='border-light-subtle py-3 d-flex align-items-center justify-content-between'>
+                        <span className="detail-label fw-semibold">Author:</span>
+                        <span className="detail-value text-secondary">N/A</span>
                       </ListGroup.Item>
-                      <ListGroup.Item>
-                        <span className="detail-label">Publisher:</span>
-                        <span className="detail-value">N/A</span>
+                      <ListGroup.Item className='border-light-subtle py-3 d-flex align-items-center justify-content-between'>
+                        <span className="detail-label fw-semibold">Publisher:</span>
+                        <span className="detail-value text-secondary">N/A</span>
                       </ListGroup.Item>
-                      <ListGroup.Item>
-                        <span className="detail-label">Publication Date:</span>
-                        <span className="detail-value">N/A</span>
+                      <ListGroup.Item className='border-light-subtle py-3 d-flex align-items-center justify-content-between'>
+                        <span className="detail-label fw-semibold">Publication Date:</span>
+                        <span className="detail-value text-secondary">N/A</span>
                       </ListGroup.Item>
-                      <ListGroup.Item>
-                        <span className="detail-label">Pages:</span>
-                        <span className="detail-value">500</span>
+                      <ListGroup.Item className='border-light-subtle py-3 d-flex align-items-center justify-content-between'>
+                        <span className="detail-label fw-semibold">Pages:</span>
+                        <span className="detail-value text-secondary">500</span>
                       </ListGroup.Item>
-                      <ListGroup.Item>
-                        <span className="detail-label">Language:</span>
-                        <span className="detail-value">English</span>
+                      <ListGroup.Item className='border-light-subtle py-3 d-flex align-items-center justify-content-between'>
+                        <span className="detail-label fw-semibold">Language:</span>
+                        <span className="detail-value text-secondary">English</span>
                       </ListGroup.Item>
-                      <ListGroup.Item>
-                        <span className="detail-label">Genre:</span>
-                        <span className="detail-value">Young Adult Fiction, Romance</span>
+                      <ListGroup.Item className='border-light-subtle py-3 d-flex align-items-center justify-content-between'>
+                        <span className="detail-label fw-semibold">Genre:</span>
+                        <span className="detail-value text-secondary">Young Adult Fiction, Romance</span>
                       </ListGroup.Item>
                     </ListGroup>
                   </Card.Body>
@@ -212,7 +212,7 @@ const Book = () => {
               </Tab>
               <Tab eventKey="reviews" title={`Reviews (${reviews.length})`}>
                 <Card className="tab-content-card border-light-subtle">
-                  <Card.Body>
+                  <Card.Body className='p-4'>
                     <div className="reviews-summary mb-4">
                       <div className="overall-rating">
                         <h3>{BOOK_RATING}/5</h3>
@@ -288,12 +288,12 @@ const Book = () => {
         </Row>
         <Row className="mt-5">
           <Col>
-            <Card className="newsletter-card">
+            <Card className="newsletter-card border-0 text-light mb-4">
               <Card.Body>
                 <Row>
                   <Col md={8}>
                     <h4>Subscribe for Updates</h4>
-                    <p className="text-muted">
+                    <p className="text-light text-opacity-75">
                       Get notified about new releases, author events, and exclusive promotions
                     </p>
                   </Col>
