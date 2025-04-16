@@ -1,4 +1,5 @@
 import React from 'react'
+import { Card, Col, Image, Row } from 'react-bootstrap';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
@@ -9,9 +10,6 @@ import news1 from "../assets/news/news-1.png"
 import news2 from "../assets/news/news-2.png"
 import news3 from "../assets/news/news-3.png"
 import news4 from "../assets/news/news-4.png"
-import { Card, Image } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { getImgUrl } from '../Helpers';
 
 const news = [
    {
@@ -50,7 +48,15 @@ const News = () => {
    return (
       <section className="py-lg-16 py-5">
          <div className="container">
-            <h2>News</h2>
+            <Row className="mb-4 align-items-center">
+               <Col>
+                  <div className="d-flex align-items-center">
+                     <div className="bg-primary opacity-75" style={{ width: "5px", height: "24px", marginRight: "12px" }}></div>
+                     <h2 className="mb-0 fw-bold">Latest News</h2>
+                  </div>
+                  <p className="text-muted mt-2">Discover the books everyone's talking about</p>
+               </Col>
+            </Row>
             <Swiper
                slidesPerView={1}
                spaceBetween={30}
@@ -59,41 +65,44 @@ const News = () => {
                breakpoints={{
                   640: {
                      slidesPerView: 1,
-                     spaceBetween: 20,
+                     spaceBetween: 30,
                   },
                   768: {
                      slidesPerView: 2,
-                     spaceBetween: 40,
+                     spaceBetween: 30,
                   },
                   1024: {
                      slidesPerView: 2,
+                     spaceBetween: 30,
+                  },
+                  1080: {
+                     slidesPerView: 3,
                      spaceBetween: 50,
                   },
-                  // 1080: {
-                  //    slidesPerView: 3,
-                  //    spaceBetween: 50,
-                  // },
                }}
-               className="mySwiper"
+               className="news-swiper"
             >
                {news.length > 0 && news.map((item) => (
                   <SwiperSlide key={item.id}>
-                     {/* <Card as={Link} to={`/books/${item.id}`} className="text-decoration-none shadow-sm">
-                        <Card.Img src={item.image} className="card-img-top" width="100%" height="225" />
-                        <Card.Body className="">
-                           <h5>{item.title}</h5>
-                           <p className="card-text">{item.description}</p>
-                        </Card.Body>
-                     </Card> */}
-                     <Card className="card card-hover w-100 h-100">
-                        <div className="row w-100 h-100 g-0">
-                           <a className="col-12 col-md-12 col-xl-3 col-lg-3 bg-cover rounded-start  " href="#">
-                              <Image fluid src={item.image} alt={item.title} className='object-fit-cover w-100 h-100' />
-                           </a>
-                           <div className="col-lg-9 col-md-12 col-12">
-                              <div className="card-body">
-                                 <h3 className="mb-2 text-truncate-line-2"><a href="#" className="text-inherit">{item.title}</a></h3>
-                                 <p className="card-text">{item.description}</p>
+                     <Card className="border-0 card-hover w-100 h-100">
+                        <div className="row g-0">
+                           <div className="col-12 col-lg-4 overflow-hidden ">
+                              <Image
+                                 src={item.image}
+                                 alt={item.title}
+                                 className="img-fluid h-100 object-fit-cover rounded-start"
+                              // style={{ maxHeight: "240px" }}
+                              />
+                           </div>
+                           <div className="col-12 col-lg-8">
+                              <div className="card-body d-flex flex-column h-100 p-4">
+                                 <div className="small text-muted mb-2">April 10, 2025</div>
+                                 <h3 className="card-title h5 mb-3">
+                                    <a href="#" className="text-decoration-none text-dark stretched-link">
+                                       {item.title}
+                                    </a>
+                                 </h3>
+                                 <p className="card-text text-muted mb-0 fs-6">{item.description}</p>
                               </div>
                            </div>
                         </div>

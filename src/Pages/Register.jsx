@@ -35,11 +35,11 @@ const Register = () => {
   }
 
   return (
-    <section className="bg-light p-3 p-md-4 p-xl-5">
+    <section className="p-3 p-md-4 p-l-5">
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-12 col-xxl-11">
-            <div className="card border-light-subtle shadow-sm">
+            <div className="card border-light-subtle shadow-sm overflow-hidden">
               <div className="row g-0">
                 <div className="col-12 col-md-6">
                   <img className="img-fluid rounded-start w-100 h-100 object-fit-cover" loading="lazy" src="https://cdn.pixabay.com/photo/2023/11/18/16/04/login-8396701_640.jpg" alt="Welcome back you've been missed!" />

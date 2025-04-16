@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,15 +7,21 @@ import { useAuth } from '../Context/AuthContext';
 import { useCreateOrderMutation } from '../Store/ordersApi';
 
 const CheckoutPage = () => {
-   const [isChecked, setIsChecked] = useState(false)
-   const navigate = useNavigate()
+   //CONTEXT
    const { currentUser } = useAuth()
    const cartItems = useSelector(state => state.cart.cartItems);
+   //RTK QUERY
    const [createOrder, { isLoading, error }] = useCreateOrderMutation()
+   const navigate = useNavigate()
+
+   //Initial state
+   const [isChecked, setIsChecked] = useState(false)
+
    // Calculate total price and total items
-   // const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0).toFixed(2);
    const totalPrice = cartItems.reduce((acc, item) => acc + (item.newPrice * item.quantity), 0).toFixed(2)
    const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);  // Calculate total items
+
+   console.log(totalItems, "mm")
 
    const {
       register,
@@ -36,7 +42,6 @@ const CheckoutPage = () => {
             country: data.country,
             state: data.state,
             zipcode: data.zipcode
-
          },
          phone: data.phone,
          productIds: cartItems.map(item => item?._id),
@@ -53,10 +58,16 @@ const CheckoutPage = () => {
       }
    };
 
+   useEffect(() => {
+      if (!cartItems || cartItems.length === 0) {
+         navigate('/', { replace: true }); // redirect to home
+      }
+   }, [cartItems, navigate]);
+
    if (isLoading) return <div>Loading....</div>
 
    return (
-      <section className="bg-light py-3 py-md-5">
+      <section className="py-3 py-md-5">
          {console.log(errors, "errors")}
          <div className="container">
             <div className="row gy-3 gy-md-4 gy-lg-0 align-items-md-center">
@@ -82,7 +93,7 @@ const CheckoutPage = () => {
                   </div>
                </div>
                <div className="col-12 col-lg-6">
-                  <div className="bg-white border rounded shadow-sm overflow-hidden">
+                  <div className="bg-white border border-light-subtle rounded shadow-sm overflow-hidden">
                      <Form onSubmit={handleSubmit(onSubmit)}>
                         <div className="row gy-4 gy-xl-5 p-4 p-xl-5">
                            <div className="col-12">
@@ -183,7 +194,7 @@ const CheckoutPage = () => {
                            <div className="col-12">
                               <Form.Check type="checkbox" id="tnc">
                                  <Form.Check.Input type="checkbox" onChange={(e) => setIsChecked(e.target.checked)} />
-                                 <Form.Check.Label>I am aggree to the <Link className='underline underline-offset-2 text-blue-600'>Terms & Conditions</Link> and <Link className='underline underline-offset-2 text-blue-600'>Shoping Policy.</Link></Form.Check.Label>
+                                 <Form.Check.Label>I am agree to the <Link className='underline underline-offset-2 text-blue-600'>Terms & Conditions</Link> and <Link className='underline underline-offset-2 text-blue-600'>Shoping Policy.</Link></Form.Check.Label>
                               </Form.Check>
                            </div>
                            <div className="col-12">

@@ -18,6 +18,8 @@ export const booksApi = createApi({
    reducerPath: 'booksApi',
    baseQuery,
    tagTypes: ["Books"],
+   refetchOnFocus: true,// 👈 Refetch when tab is focused
+   refetchOnReconnect: true,// 👈 Refetch when internet reconnects
    endpoints: (builder) => ({
       fetchAllBooks: builder.query({
          query: () => '/',

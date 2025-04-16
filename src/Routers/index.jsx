@@ -4,19 +4,8 @@ import App from "../App";
 import ProtectedRoute from "./ProtectedRoute";
 import AdminRoute from "./AdminRoute";
 import DashboardLayout from "../Components/DashboardLayout";
-// import Home from "../Pages/Home";
-// import Login from "../Pages/Login";
-// import Register from "../Pages/Register";
-// import CheckoutPage from "../Pages/Checkout";
-// import Book from "../Pages/Book";
-// import Orders from "../Pages/Orders";
-// import NotFound from "../Pages/NotFound";
-// import Dashboard from "../Pages/Dashboard";
-// import AdminLogin from "../Pages/AdminLogin";
-// import ManageBooks from "../Pages/ManageBooks";
-// import AddBook from "../Pages/AddBook";
-// import UpdateBook from "../Pages/UpdateBook";
 
+//Code splitting
 const Home = lazy(() => import("../Pages/Home"));
 const Login = lazy(() => import("../Pages/Login"));
 const Register = lazy(() => import("../Pages/Register"));
@@ -29,7 +18,7 @@ const ManageBooks = lazy(() => import("../Pages/ManageBooks"));
 const Orders = lazy(() => import("../Pages/Orders"));
 const AddBook = lazy(() => import("../Pages/AddBook"));
 const UpdateBook = lazy(() => import("../Pages/UpdateBook"));
-const Test = lazy(() => import("../Pages/Test"));
+const OrderDetail = lazy(() => import("../Pages/OrderDetail"));
 
 const Routers = createBrowserRouter([
   {
@@ -40,12 +29,10 @@ const Routers = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/books/:id", element: <Book /> },
       { path: "/orders", element: <ProtectedRoute><Orders /></ProtectedRoute> },
-      { path: "/about", element: <div>About</div> },
-      { path: "/contact", element: <div>Contact</div> },
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
       { path: "/checkout", element: <ProtectedRoute><CheckoutPage /></ProtectedRoute> },
-      { path: "/test", element: <Test /> },
+      { path: "/order-detail/:id", element: <OrderDetail /> },
     ],
   },
   {

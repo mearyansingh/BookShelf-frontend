@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '../Firebase/firebaseConfig';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
 const AuthContext = createContext();
 
@@ -36,6 +37,7 @@ export const AuthProvider = ({ children }) => {
   const logoutUser = async () => {
     await signOut(auth)
     setCurrentUser(null)
+    toast.success('Logout successfully!')
   }
 
   //manage user 
