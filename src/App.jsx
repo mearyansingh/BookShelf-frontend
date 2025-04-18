@@ -1,6 +1,5 @@
 import { Suspense, useEffect, useState } from "react"
 import { Outlet } from "react-router-dom"
-import { ToastContainer } from 'react-toastify';
 import Header from "./Components/Header"
 import Footer from "./Components/Footer"
 import { AuthProvider } from "./Context/AuthContext"
@@ -18,7 +17,6 @@ function App() {
             </Suspense>
           </main>
           <Footer />
-          <ToastContainer />
         </div >
       </AuthProvider>
     </>

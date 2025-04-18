@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { Button } from 'react-bootstrap';
-import { useAuth } from '../Context/AuthContext';
 import { toast } from 'react-toastify';
+import { useAuth } from '../Context/AuthContext';
 import { handleFirebaseError } from '../Utils/helper';
 
 const Login = () => {

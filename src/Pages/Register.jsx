@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from "react-hook-form";
 import { Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useAuth } from '../Context/AuthContext';
 
 const Register = () => {
@@ -15,7 +16,7 @@ const Register = () => {
   const onSubmit = async (data) => {
     try {
       await registerUser(data.email, data.password)
-      alert('Registration successful!')
+      toast.success('Registration successful!')
     } catch (error) {
       setMessage("Please provide a valid email and password!")
       console.log(error)
@@ -26,7 +27,7 @@ const Register = () => {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithGoogle()
-      alert("Google Sign-In successful")
+      toast.success("Google Sign-In successful")
       navigate("/")
     } catch (error) {
       alert("Google sign-In failed")
@@ -53,7 +54,6 @@ const Register = () => {
                             <div className="text-center mb-4">
                               <a href="#!">
                                 <svg id="logo-35" width="50" height="39" viewBox="0 0 50 39" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z" className="ccompli1" fill="#007AFF"></path> <path d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z" className="ccustom" fill="#312ECB"></path> </svg>
-                                {/* <img src="./assets/img/bsb-logo.svg" alt="BootstrapBrain Logo" width="175" height="57" /> */}
                               </a>
                             </div>
                             <h4 className="text-center">Register</h4>

@@ -1,109 +1,224 @@
-import { Button, Card, Container, Dropdown, Image, Navbar, Offcanvas } from 'react-bootstrap'
-import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react';
+import { Badge, Button, Card, Container, Dropdown, Image, Navbar, Offcanvas } from 'react-bootstrap'
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify';
 
 const DashboardLayout = () => {
    const navigate = useNavigate()
+   const location = useLocation();
 
+   //Initial state
+   const [pageTitle, setPageTitle] = useState('Dashboard');
+
+   // Update page title based on current route
+   useEffect(() => {
+      const path = location.pathname;
+      if (path === '/dashboard') setPageTitle('Dashboard');
+      else if (path.includes('add-new-book')) setPageTitle('Add New Book');
+      else if (path.includes('manage-books')) setPageTitle('Manage Books');
+   }, [location.pathname]);
+
+   //Function to handle logout
    const handleLogout = () => {
       localStorage.removeItem('token');
       navigate("/")
+      toast.success('Admin logout successfully!')
    }
 
    return (
       <>
-         {/* {loading && <div>Loading...</div>} */}
-         <Navbar expand={false} className="bg-body-tertiary mb-3">
-            <Container fluid>
-               <Navbar.Brand as={Link} to="/">
-                  <svg id="logo-35" width="50" height="39" viewBox="0 0 50 39" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z" className="ccompli1" fill="#007AFF"></path> <path d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z" className="ccustom" fill="#312ECB"></path> </svg>
-                  <span className='fw-bold ms-1'>BookShelf</span>
-               </Navbar.Brand>
-               <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-false`} />
-               <Navbar.Offcanvas
-                  id={`offcanvasNavbar-expand-false`}
-                  aria-labelledby={`offcanvasNavbarLabel-expand-false`}
-                  placement="end"
-                  style={{ width: "250px" }}
-               >
-                  <Offcanvas.Header closeButton className='bg-body-tertiary'>
-                     <Offcanvas.Title id={`offcanvasNavbarLabel-expand-false`}>
-                        <svg id="logo-35" width="50" height="39" viewBox="0 0 50 39" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z" className="ccompli1" fill="#007AFF"></path> <path d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z" className="ccustom" fill="#312ECB"></path> </svg>
-                        <span className='fw-bold ms-1 fs-6'>BookShelf</span>
-                     </Offcanvas.Title>
-                  </Offcanvas.Header>
-                  <Offcanvas.Body className="d-flex flex-column">
-                     {/* <div className="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style={{ width: "280px" }}> */}
-                     {/* <a href="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                           <svg className="bi pe-none me-2" width="40" height="32"><use xlinkHref="#bootstrap"></use></svg>
-                           <span className="fs-4">Sidebar</span>
-                        </a>
-                        <hr /> */}
-                     <ul className="nav nav-pills flex-column mb-auto">
-                        <li className="nav-item">
-                           <a href="#" className="nav-link" aria-current="page">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-folder me-1" viewBox="0 0 16 16">
-                                 <path d="M.54 3.87.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.826a2 2 0 0 1-1.991-1.819l-.637-7a2 2 0 0 1 .342-1.31zM2.19 4a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zm4.69-1.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139q.323-.119.684-.12h5.396z" />
-                              </svg>
-                              Folders
-                           </a>
-                        </li>
-                        <li>
-                           <NavLink to="/dashboard" className="nav-link link-body-emphasis">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bar-chart-fill me-1" viewBox="0 0 16 16">
-                                 <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z" />
-                              </svg>
-                              Dashboard
-                           </NavLink>
-                        </li>
-                        <li>
-                           <NavLink to="/dashboard/add-new-book" className="nav-link link-body-emphasis">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="me-1 bi bi-journal-plus" viewBox="0 0 16 16">
-                                 <path fillRule="evenodd" d="M8 5.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 .5-.5" />
-                                 <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2" />
-                                 <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z" />
-                              </svg>
-                              Add Book
-                           </NavLink>
-                        </li>
-                        <li>
-                           <NavLink to="/dashboard/manage-books" className="nav-link link-body-emphasis">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-files me-1" viewBox="0 0 16 16">
-                                 <path d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2m0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1M3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" />
-                              </svg>
-                              Documents
-                           </NavLink>
-                        </li>
-                     </ul>
-                     <hr />
-                     <Dropdown drop="up">
-                        <Dropdown.Toggle as="button" className='w-100 px-0 text-start border-0 bg-transparent fw-bold' variant="success" id="dropdown-basic">
-                           <Image fluid src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2" />
-                           Admin
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu className='w-100 shadow-lg border-0'>
-                           <Dropdown.Item as="button" onClick={handleLogout}><i className="bi bi-box-arrow-left me-1"></i>Logout</Dropdown.Item>
-                        </Dropdown.Menu>
-                     </Dropdown>
-                     {/* </div> */}
-                  </Offcanvas.Body>
-               </Navbar.Offcanvas>
-            </Container>
-         </Navbar>
-         <Container fluid>
-            <Card className='shadow-sm border-light-subtle'>
-               <Card.Body className='d-flex gap-2 flex-wrap justify-content-between'>
-                  <div>
-                     <h3 className='mb-0'>Dashboard</h3>
-                     <small>Book store inventory</small>
+         <section className="dashboard-wrapper bg-light min-vh-100 d-flex flex-column">
+            {/* Top Navigation */}
+            <Navbar expand={false} variant="dark" className="bg-primary shadow-sm" sticky="top">
+               <Container fluid className="px-3 px-md-4">
+                  <Navbar.Brand as={Link} to="/dashboard" className="d-flex align-items-center">
+                     <svg id="logo-35" width="40" height="32" viewBox="0 0 50 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z" className="ccompli1" fill="#ffffff"></path>
+                        <path d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z" className="ccustom" fill="#f0f0f0"></path>
+                     </svg>
+                     <span className="fw-bold ms-2 fs-5 text-white">BookShelf</span>
+                  </Navbar.Brand>
+
+                  {/* Mobile Menu Toggle */}
+                  <div className="d-flex align-items-center">
+                     <Badge bg="light" text="primary" className="d-none d-md-block me-3 py-2 px-3">
+                        <i className="bi bi-person-fill me-1"></i>Admin
+                     </Badge>
+                     <Navbar.Toggle
+                        className="border-0 shadow-none"
+                        aria-controls="dashboardOffcanvasNav"
+                     >
+                        <i className="bi bi-list fs-4 text-white"></i>
+                     </Navbar.Toggle>
                   </div>
-                  <div className='d-lg-flex  gap-2 align-items-start mt-2 mt-sm-0'>
-                     {location.pathname !== "/dashboard/manage-books" ? <Button className='' as={Link} to="/dashboard/manage-books"><i className="bi bi-pencil me-1"></i>Manage Books</Button> : null}
-                     {location.pathname !== "/dashboard/add-new-book" ? <Button className='mt-2 mt-sm-0' as={Link} to="/dashboard/add-new-book"><i className="bi bi-plus-lg me-1"></i>Add New Book</Button> : null}
-                  </div>
-               </Card.Body>
-            </Card>
-            <Outlet />
-         </Container>
+                  {/* Sidebar Navigation */}
+                  <Navbar.Offcanvas
+                     id="dashboardOffcanvasNav"
+                     aria-labelledby="dashboardOffcanvasNavLabel"
+                     placement="end"
+                     className="dashboard-sidebar"
+                     style={{ maxWidth: "280px" }}
+                  >
+                     <Offcanvas.Header closeButton className="bg-primary text-white">
+                        <Offcanvas.Title id="dashboardOffcanvasNavLabel" className="d-flex align-items-center">
+                           <svg id="logo-sidebar" width="30" height="24" viewBox="0 0 50 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M16.4992 2H37.5808L22.0816 24.9729H1L16.4992 2Z" className="ccompli1" fill="#ffffff"></path>
+                              <path d="M17.4224 27.102L11.4192 36H33.5008L49 13.0271H32.7024L23.2064 27.102H17.4224Z" className="ccustom" fill="#f0f0f0"></path>
+                           </svg>
+                           <span className="fw-bold fs-6 ms-2">BookShelf Admin</span>
+                        </Offcanvas.Title>
+                     </Offcanvas.Header>
+                     <Offcanvas.Body className="d-flex flex-column p-0">
+                        {/* Admin Profile Card */}
+                        <div className="admin-profile p-3 bg-light border-bottom">
+                           <div className="d-flex align-items-center mb-3">
+                              <Image
+                                 src="https://github.com/mdo.png"
+                                 alt="Admin"
+                                 width="50"
+                                 height="50"
+                                 className="rounded-circle border border-2 border-white shadow-sm"
+                              />
+                              <div className="ms-3">
+                                 <h6 className="mb-0 fw-bold">Admin User</h6>
+                                 <span className="text-muted small">Administrator</span>
+                              </div>
+                           </div>
+                           <Button
+                              variant="outline-primary"
+                              size="sm"
+                              className="w-100"
+                              onClick={handleLogout}
+                           >
+                              <i className="bi bi-box-arrow-right me-2"></i>Logout
+                           </Button>
+                        </div>
+                        {/* Navigation Menu */}
+                        <div className="sidebar-menu p-2">
+                           <span className="text-uppercase small fw-bold text-muted px-3 mb-2 d-block">
+                              Main Menu
+                           </span>
+                           <ul className="nav nav-pills flex-column mb-auto">
+                              <li className="nav-item mb-1">
+                                 <NavLink
+                                    to="/dashboard"
+                                    end
+                                    className={({ isActive }) =>
+                                       `nav-link rounded-3 d-flex align-items-center ${isActive ? 'active' : 'text-dark'}`
+                                    }
+                                 >
+                                    <i className="bi bi-grid-1x2-fill me-2"></i>
+                                    Dashboard
+                                 </NavLink>
+                              </li>
+                              <li className="nav-item mb-1">
+                                 <NavLink
+                                    to="/dashboard/add-new-book"
+                                    className={({ isActive }) =>
+                                       `nav-link rounded-3 d-flex align-items-center ${isActive ? 'active' : 'text-dark'}`
+                                    }
+                                 >
+                                    <i className="bi bi-plus-circle me-2"></i>
+                                    Add Book
+                                 </NavLink>
+                              </li>
+                              <li className="nav-item mb-1">
+                                 <NavLink
+                                    to="/dashboard/manage-books"
+                                    className={({ isActive }) =>
+                                       `nav-link rounded-3 d-flex align-items-center ${isActive ? 'active' : 'text-dark'}`
+                                    }
+                                 >
+                                    <i className="bi bi-collection me-2"></i>
+                                    Manage Books
+                                 </NavLink>
+                              </li>
+                              <li className="nav-item mb-1">
+                                 <NavLink
+                                    to="/"
+                                    className={({ isActive }) =>
+                                       `nav-link rounded-3 d-flex align-items-center ${isActive ? 'active' : 'text-dark'}`
+                                    }
+                                 >
+                                    <i className="bi bi-arrow-left me-2"></i>
+                                    Back to BookShelf
+                                 </NavLink>
+                              </li>
+                           </ul>
+                           <hr className="my-3" />
+                           <span className="text-uppercase small fw-bold text-muted px-3 mb-2 d-block">
+                              Help & Settings
+                           </span>
+                           <ul className="nav nav-pills flex-column">
+                              <li className="nav-item">
+                                 <Link to="#" className="nav-link text-dark rounded-3 d-flex align-items-center">
+                                    <i className="bi bi-gear me-2"></i>
+                                    Settings
+                                 </Link>
+                              </li>
+                              <li className="nav-item">
+                                 <Link to="#" className="nav-link text-dark rounded-3 d-flex align-items-center">
+                                    <i className="bi bi-question-circle me-2"></i>
+                                    Help Center
+                                 </Link>
+                              </li>
+                           </ul>
+                        </div>
+                        {/* Footer */}
+                        <div className="sidebar-footer mt-auto p-3 border-top">
+                           <div className="d-flex justify-content-between align-items-center">
+                              <span className="text-muted small">BookShelf v1.0</span>
+                              <a href="#" className="text-decoration-none small text-primary">Feedback</a>
+                           </div>
+                        </div>
+                     </Offcanvas.Body>
+                  </Navbar.Offcanvas>
+               </Container>
+            </Navbar>
+            {/* Main Content Area */}
+            <div className="dashboard-content flex-grow-1 py-4">
+               <Container fluid className="px-3 px-md-4">
+                  {/* Page Header */}
+                  <Card className="border-0 bg-white shadow-sm mb-4">
+                     <Card.Body className="d-flex flex-wrap gap-3 justify-content-between align-items-center py-3">
+                        <div>
+                           <h4 className="mb-0 fw-bold text-primary">{pageTitle}</h4>
+                           <div className="text-muted small">
+                              <i className="bi bi-calendar3 me-2"></i>
+                              {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' })}
+                           </div>
+                        </div>
+                        <div className="d-flex flex-wrap gap-2">
+                           {location.pathname !== "/dashboard/manage-books" && (
+                              <Button
+                                 variant="outline-primary"
+                                 size="sm"
+                                 as={Link}
+                                 to="/dashboard/manage-books"
+                                 className="d-flex align-items-center"
+                              >
+                                 <i className="bi bi-table me-2"></i>Manage Books
+                              </Button>
+                           )}
+                           {location.pathname !== "/dashboard/add-new-book" && (
+                              <Button
+                                 variant="primary"
+                                 size="sm"
+                                 as={Link}
+                                 to="/dashboard/add-new-book"
+                                 className="d-flex align-items-center"
+                              >
+                                 <i className="bi bi-plus-lg me-2"></i>Add Book
+                              </Button>
+                           )}
+                        </div>
+                     </Card.Body>
+                  </Card>
+                  {/* Dynamic Content */}
+                  <Outlet />
+               </Container>
+            </div>
+         </section>
       </>
    )
 }

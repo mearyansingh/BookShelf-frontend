@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Container, Navbar, Dropdown, Offcanvas, ListGroup, Figure, Image, Badge, Form, Col, Row, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { getImgUrl } from '../Helpers';
 import { clearCart, removeFromCart } from '../Store/cartSlice';
 import { useAuth } from '../Context/AuthContext';
@@ -71,16 +71,25 @@ const Header = () => {
                 </Dropdown.Menu>
               </Dropdown>
             ) : (
-              <Link to="/login" className='me-3' >
-                <Image src={userAvatar} alt="user avatar " className='rounded-circle' width={45} height={45} />
-              </Link>
+              <div className='hstack gap-3'>
+                <NavLink
+                  to='/login'
+                  className={({ isActive, isPending }) => `text-decoration-none ${isPending ? "pending" : isActive ? "active fw-semibold" : ""}`}>
+                  Login
+                </NavLink>
+                <NavLink
+                  to='/register'
+                  className={({ isActive, isPending }) => `text-decoration-none ${isPending ? "pending" : isActive ? "active fw-semibold" : ""}`}>
+                  Register
+                </NavLink>
+              </div>
+
             )}
             {(cartItems?.length > 0) &&
               <Button Button variant="outline-dark fw-semibold" onClick={handleShow}>
                 <i className='bi bi-cart' /><span className='ps-1 d-none d-sm-inline-block'>Cart</span>{cartItems?.length > 0 && <span className='ps-1'>{`${cartItems?.length > 0 ? cartItems?.length : '0'}`}</span>}
               </Button>
             }
-
             <Offcanvas
               show={show}
               onHide={handleClose}

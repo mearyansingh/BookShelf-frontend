@@ -50,11 +50,9 @@ export const booksApi = createApi({
          query: (id) => ({
             url: `/${id}`,
             method: 'DELETE',
-            // Optional: Add headers if needed for authorization
-            // headers: { 'Content-Type': 'application/json' }
-            // headers: {
-            //    Authorization: `Bearer ${localStorage.getItem('token')}`, // Replace with your auth mechanism
-            // }
+            headers: {
+               Authorization: `Bearer ${localStorage.getItem('token')}`, // Replace with your auth mechanism
+            }
          }),
          invalidatesTags: ["Books"]
       }),
